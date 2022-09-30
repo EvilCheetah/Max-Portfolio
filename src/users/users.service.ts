@@ -3,7 +3,8 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDTO } from './dto/create-user.dto';
-import { UpdateUserDTO } from './dto/update-user.dto';
+import { UpdateUserInfoDTO } from './dto/update-user-info.dto';
+import { UpdatePasswordDTO } from './dto/update-password.dto';
 
 
 @Injectable()
@@ -41,7 +42,12 @@ export class UsersService
         return user;
     }
 
-    update(user_id: number, updateUserDto: UpdateUserDTO)
+    updateInfo(user_id: number, updateUserInfoDTO: UpdateUserInfoDTO)
+    {
+        return `This action updates a #${user_id} user`;
+    }
+
+    updatePassword(user_id: number, updatePasswordDTO: UpdatePasswordDTO)
     {
         return `This action updates a #${user_id} user`;
     }
@@ -69,7 +75,7 @@ export class UsersService
         });
     }
 
-    async _check_if_user_exists(user_data: Partial<User>): Promise<void>
+    private async _check_if_user_exists(user_data: Partial<User>): Promise<void>
     {
         const { email, username } = user_data;
 

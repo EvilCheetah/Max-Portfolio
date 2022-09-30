@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './dto/create-user.dto';
-import { UpdateUserDTO } from './dto/update-user.dto';
+import { UpdatePasswordDTO } from './dto/update-password.dto';
+import { UpdateUserInfoDTO } from './dto/update-user-info.dto';
 
 
 @Controller('users')
@@ -24,21 +25,45 @@ export class UsersController
         return this.usersService.findAll();
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string)
+    @Get(':user_id')
+    findOne(
+        @Param('user_id', ParseIntPipe)
+        user_id: number
+    )
     {
-        return this.usersService.findOne(+id);
+        return this.usersService.findOne(user_id);
     }
 
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDTO)
+    @Patch(':user_id/info')
+    updateInfo(
+        @Param('user_id', ParseIntPipe)
+        user_id: number,
+        
+        @Body()
+        updateUserInfoDTO: UpdateUserInfoDTO
+    )
     {
-        return this.usersService.update(+id, updateUserDto);
+        return this.usersService.updateInfo(user_id, updateUserInfoDTO);
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string)
+    @Patch(':user_id/password')
+    updatePassword(
+        @Param('user_id', ParseIntPipe)
+        user_id: number,
+        
+        @Body()
+        updatePasswordDTO: UpdatePasswordDTO
+    )
     {
-        return this.usersService.remove(+id);
+        return this.usersService.updatePassword(user_id, updatePasswordDTO);
+    }
+
+    @Delete(':user_id')
+    remove(
+        @Param('user_id', ParseIntPipe)
+        user_id: number
+    )
+    {
+        return this.usersService.remove(user_id);
     }
 }

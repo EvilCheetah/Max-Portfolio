@@ -42,9 +42,9 @@ export class UsersService
         return user;
     }
 
-    updateInfo(user_id: number, updateUserInfoDTO: UpdateUserInfoDTO)
+    async updateInfo(user_id: number, updateUserInfoDTO: UpdateUserInfoDTO)
     {
-        return `This action updates a #${user_id} user`;
+        const user = await this.findOne(user_id)
     }
 
     updatePassword(user_id: number, updatePasswordDTO: UpdatePasswordDTO)

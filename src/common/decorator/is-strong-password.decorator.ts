@@ -1,5 +1,6 @@
 import { buildMessage, isString, matches, ValidateBy, ValidationArguments, ValidationOptions } from "class-validator";
-import { STRONG_PASSWORD } from "../constant/strong-password.constant";
+
+import { STRONG_PASSWORD } from "@constant/pattern/strong-password.constant";
 
 
 export function isStrongPassword(value: unknown): boolean

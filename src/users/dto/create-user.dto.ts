@@ -1,6 +1,7 @@
 import { IsEmail, IsString } from "class-validator";
-import { IsEqual } from "src/common/decorator/is-equal.decorator";
-import { IsUsername } from "src/common/decorator/is-username.decorator";
+
+import { IsEqual } from "@decorator";
+import { IsUsername } from "@decorator";
 
 
 export class CreateUserDTO

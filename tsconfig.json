@@ -18,7 +18,10 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-        "@constant/*": ["src/common/constant/*"]
+        "@decorator": ["src/common/decorator/index"],
+        
+        "@constant/*": ["src/common/constant/*"],
+        "@decorator/*": ["src/common/decorator/*"]
     }
   }
 }

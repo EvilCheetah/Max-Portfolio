@@ -1,3 +1,3 @@
-export * from './create-user.dto';
+export * from './new-user.dto';
 export * from './update-password.dto';
 export * from './update-user-info.dto';

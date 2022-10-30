@@ -4,7 +4,7 @@ import { IsEqual } from "@decorator";
 import { IsUsername } from "@decorator";
 
 
-export class CreateUserDTO
+export class NewUserDTO
 {
     @IsEmail()
     email:            string;

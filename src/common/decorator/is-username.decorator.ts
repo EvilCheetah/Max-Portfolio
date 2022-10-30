@@ -1,12 +1,14 @@
 import { buildMessage, matches, ValidateBy, ValidationArguments, ValidationOptions } from "class-validator";
 
+import { USERNAME } from "@constant/pattern/username.constant";
+
 
 export function isUsername(value: string): boolean
 {
     /// Matches:
     /// 1) Start with Letter
     /// 2) Then allowed characters: A-Z, a-z, 0-9 and '_'
-    return matches(value, /^[a-zA-Z][a-zA-Z\d_]+$/g);
+    return matches(value, USERNAME);
 }
 
 

@@ -1,0 +1,1 @@
+export const USERNAME = /^[a-zA-Z][a-zA-Z\d_]+$/g

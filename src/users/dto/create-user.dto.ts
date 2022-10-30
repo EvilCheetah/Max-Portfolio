@@ -15,6 +15,6 @@ export class CreateUserDTO
     password:         string;
 
     @IsString()
-    @IsEqual('password', { message: "'confirmation_password' should match 'password'" })
+    @IsEqual('password', { message: "'confirm_password' should match 'password'" })
     confirm_password: string;
 }

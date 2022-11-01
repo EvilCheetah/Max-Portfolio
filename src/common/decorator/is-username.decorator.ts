@@ -1,6 +1,6 @@
 import { buildMessage, matches, ValidateBy, ValidationArguments, ValidationOptions } from "class-validator";
 
-import { USERNAME } from "@constant/pattern/username.constant";
+import { USERNAME } from "@constant";
 
 
 export function isUsername(value: string): boolean

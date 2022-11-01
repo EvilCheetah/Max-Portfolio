@@ -1,5 +1,5 @@
 import { IsString } from "class-validator";
-import { IsEqual } from "src/common/decorator/is-equal.decorator";
+import { IsEqual } from "@decorator/is-equal-to.decorator";
 
 
 export class UpdatePasswordDTO

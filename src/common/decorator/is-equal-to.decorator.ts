@@ -1,7 +1,7 @@
 import { isString, registerDecorator, ValidationArguments, ValidationOptions } from "class-validator";
 
 
-export function IsEqual(property: string, validation_options?: ValidationOptions)
+export function IsEqualTo(property: string, validation_options?: ValidationOptions)
 {
     return function (object: Object, property_name: string)
     {

@@ -1,10 +1,8 @@
 import { User } from '@prisma/client';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 
+import { NewUserDTO, UpdatePasswordDTO, UpdateUserCredentialsDTO } from '@dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateUserDTO } from './dto/create-user.dto';
-import { UpdateUserInfoDTO } from './dto/update-user-info.dto';
-import { UpdatePasswordDTO } from './dto/update-password.dto';
 
 
 @Injectable()
@@ -14,7 +12,7 @@ export class UsersService
         private readonly prisma: PrismaService
     ) {}
 
-    create(createUserDTO: CreateUserDTO): Promise<User>
+    create(createUserDTO: NewUserDTO): Promise<User>
     {
         const {confirm_password, ...user_data} = createUserDTO;
 
@@ -42,7 +40,7 @@ export class UsersService
         return user;
     }
 
-    async updateInfo(user_id: number, updateUserInfoDTO: UpdateUserInfoDTO)
+    async updateInfo(user_id: number, updateUserInfoDTO: UpdateUserCredentialsDTO)
     {
         const user = await this.findOne(user_id)
     }

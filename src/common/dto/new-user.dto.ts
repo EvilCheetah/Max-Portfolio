@@ -1,6 +1,6 @@
-import { IsEmail, IsString } from "class-validator";
+import { IsEmail, IsString, Max } from "class-validator";
 
-import { IsEqual } from "@decorator";
+import { IsEqualTo } from "@decorator";
 import { IsUsername } from "@decorator";
 
 
@@ -10,12 +10,15 @@ export class NewUserDTO
     email:            string;
 
     @IsUsername()
+    @Max(120)
     username:         string;
 
     @IsString()
+    @Max(120)
     password:         string;
 
     @IsString()
-    @IsEqual('password', { message: "'confirm_password' should match 'password'" })
+    @Max(120)
+    @IsEqualTo('password', { message: "'confirm_password' should match 'password'" })
     confirm_password: string;
 }

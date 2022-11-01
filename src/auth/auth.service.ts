@@ -1,33 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAuthDTO } from './dto/create-auth.dto';
-import { UpdateAuthDTO } from './dto/update-auth.dto';
+
+import { NewUserDTO } from '@dto';
+import { CredentialsDTO } from './dto/credentials.dto';
 
 
 @Injectable()
 export class AuthService
 {
-    create(createAuthDTO: CreateAuthDTO)
+    signup(information: NewUserDTO)
     {
-        return 'This action adds a new auth';
+        return 'This action signs user up';
     }
 
-    findAll()
+    login(credentials: CredentialsDTO)
     {
-        return `This action returns all auth`;
+        return 'This action logs user in';
     }
 
-    findOne(id: number)
+    logout()
     {
-        return `This action returns a #${id} auth`;
+        return 'This action logs user out';
     }
 
-    update(id: number, updateAuthDTO: UpdateAuthDTO)
+    refresh()
     {
-        return `This action updates a #${id} auth`;
-    }
-
-    remove(id: number)
-    {
-        return `This action removes a #${id} auth`;
+        return 'This action refreshes user\'s token';
     }
 }

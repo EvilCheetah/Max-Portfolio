@@ -1,0 +1,1 @@
+export const MAX_ALLOWED_USERNAME_LENGTH = 120;

@@ -3,6 +3,9 @@ import { buildMessage, matches, ValidateBy, ValidationArguments, ValidationOptio
 import { USERNAME } from "@constant";
 
 
+export const IS_USERNAME = 'isUsername';
+
+
 export function isUsername(value: string): boolean
 {
     return matches(value, USERNAME);
@@ -12,7 +15,7 @@ export function isUsername(value: string): boolean
 export function IsUsername(validation_options?: ValidationOptions)
 {
     return ValidateBy({
-        name: 'isUsername',
+        name: IS_USERNAME,
         validator: {
             validate: (value: any, args: ValidationArguments) => isUsername(value),
 

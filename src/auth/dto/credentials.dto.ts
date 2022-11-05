@@ -12,10 +12,8 @@ import {
 export class CredentialsDTO
 {
     @IsUsername()
-    @Length( MIN_USERNAME_LENGTH, MAX_USERNAME_LENGTH )
     username: string;
 
     @IsString()
-    @Length( MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH )
     password: string;
 }

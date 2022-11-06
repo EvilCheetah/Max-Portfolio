@@ -97,7 +97,7 @@ export class UsersService
         });
     }
 
-    async resetRefreshToken(user_id): Promise<void>
+    async resetRefreshToken(user_id: number): Promise<void>
     {
         await this.prisma.user.updateMany({
             where: {

@@ -1,6 +1,6 @@
 import * as bcrypt from "bcrypt";
 import { JwtService } from '@nestjs/jwt';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { NewUserDTO } from '@dto';
@@ -48,7 +48,7 @@ export class AuthService
 
 
     ///  ---------------------- Auth Methods ---------------------- /// 
-    async signup(information: NewUserDTO)
+    async signup(information: NewUserDTO): Promise<JwtTokens>
     {
         const user   = await this.usersService.create(information);
 
@@ -58,9 +58,17 @@ export class AuthService
         return tokens;
     }
 
-    login(credentials: CredentialsDTO)
+    async login(credentials: CredentialsDTO): Promise<JwtTokens>
     {
-        return 'This action logs user in';
+        const user = await this.validateCredentials(credentials.username, credentials.password);
+
+        if ( !user )
+            throw new UnauthorizedException();
+        
+        const tokens = this.getTokens({ sub: user.user_id, email: user.email });
+        await this.usersService.updateRefreshToken(user.user_id, tokens.refresh_token);
+
+        return tokens;
     }
 
     logout()

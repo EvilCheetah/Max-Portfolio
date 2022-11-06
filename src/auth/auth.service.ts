@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { NewUserDTO } from '@dto';
+import { JwtPayload, JwtTokens } from "@interface";
 import { CredentialsDTO } from './dto/credentials.dto';
 import { UsersService } from 'src/users/users.service';
 
@@ -18,9 +19,14 @@ export class AuthService
     ) {}
     
     
-    signup(information: NewUserDTO)
+    async signup(information: NewUserDTO)
     {
-        return this.usersService.create(information)
+        const user   = await this.usersService.create(information);
+
+        const tokens = this.getTokens({ sub: user.user_id, email: user.email });
+        await this.usersService.updateRefreshToken(user.user_id, tokens.refresh_token);
+
+        return tokens;
     }
 
     login(credentials: CredentialsDTO)
@@ -38,5 +44,24 @@ export class AuthService
         return 'This action refreshes user\'s token';
     }
 
-    getTokens(payload: )
+    getTokens(payload: JwtPayload): JwtTokens
+    {
+        const access_token  = this.jwtService.sign(
+            payload,
+            {
+                secret:    this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
+                expiresIn: this.configService.get('JWT_ACCESS_TOKEN_EXPIRES_IN')
+            }
+        );
+
+        const refresh_token = this.jwtService.sign(
+            payload,
+            {
+                secret:    this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
+                expiresIn: this.configService.get('JWT_REFRESH_TOKEN_EXPIRES_IN')
+            }
+        );
+
+        return { access_token, refresh_token };
+    }
 }

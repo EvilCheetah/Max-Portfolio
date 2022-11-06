@@ -72,6 +72,8 @@ export class UsersService
         });
     }
 
+
+    /// ---------------------- Service Methods ---------------------- ///
     findOneBy(criteria: UniqueUserCriteria): Promise<User>
     {
         return this.prisma.user.findUnique({
@@ -79,7 +81,21 @@ export class UsersService
         });
     }
 
-    /// ---------------------- Helper Functions ---------------------- ///
+    async updateRefreshToken(user_id: number, refresh_token: string | null)
+    {
+        const refresh_token_hash = await bcrypt.hash(
+            refresh_token,
+            +this.configService.get('SALT_ROUNDS')
+        );
+
+        await this.prisma.user.update({
+            where: { user_id },
+            data:  { refresh_token: refresh_token_hash }
+        });
+    }
+
+
+    /// ---------------------- Helper Methods ---------------------- ///
     findOneById(user_id: number): Promise<User>
     {
         return this.findOneBy({ user_id });

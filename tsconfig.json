@@ -24,13 +24,15 @@
         "@decorator":    ["src/common/decorator/index"],
         "@interface":    ["src/common/interface/index"],
         "@validation":   ["src/common/validation/index"],
+        "@types":        ["src/common/types/index"],
         
         "@config/*":     ["src/common/config/*"],
         "@dto/*":        ["src/common/dto/*"],
         "@constant/*":   ["src/common/constant/*"],
         "@decorator/*":  ["src/common/decorator/*"],
         "@interface/*":  ["src/common/interface/*"],
-        "@validation/*": ["src/common/validation/*"]
+        "@validation/*": ["src/common/validation/*"],
+        "@types/*":      ["src/common/types/*"],
     }
   }
 }

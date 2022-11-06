@@ -115,12 +115,12 @@ export class UsersService
         return this.findOneBy({ user_id });
     }
 
-    findByEmail(email: string): Promise<User>
+    findOneByEmail(email: string): Promise<User>
     {
         return this.findOneBy({ email });
     }
 
-    findByUsername(username: string): Promise<User>
+    findOneByUsername(username: string): Promise<User>
     {
         return this.findOneBy({ username });
     }
@@ -129,10 +129,10 @@ export class UsersService
     {
         const { email, username } = user_data;
 
-        if ( await this.findByEmail(email) )
+        if ( await this.findOneByEmail(email) )
             throw new BadRequestException(`User with email: ${email} already EXISTS`);
         
-        if ( await this.findByUsername(username) )
+        if ( await this.findOneByUsername(username) )
             throw new BadRequestException(`User with username: ${username} already EXISTS`);
     }
 }

@@ -37,3 +37,4 @@ lerna-debug.log*
 # Sensitive information
 .env
 *.db
+*.db-journal

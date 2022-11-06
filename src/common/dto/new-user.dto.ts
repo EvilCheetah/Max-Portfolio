@@ -1,8 +1,13 @@
-import { IsEmail, IsString, MaxLength } from "class-validator";
+import { IsEmail, IsString, Length } from "class-validator";
 
 import { IsEqualTo } from "@decorator";
 import { IsUsername } from "@decorator";
-import { MAX_ALLOWED_PASSWORD_LENGTH, MAX_ALLOWED_USERNAME_LENGTH } from "@constant";
+import {
+    MIN_PASSWORD_LENGTH,
+    MAX_PASSWORD_LENGTH,
+    MIN_USERNAME_LENGTH,
+    MAX_USERNAME_LENGTH
+} from "@constant";
 
 
 export class NewUserDTO
@@ -11,15 +16,15 @@ export class NewUserDTO
     email:            string;
 
     @IsUsername()
-    @MaxLength( MAX_ALLOWED_USERNAME_LENGTH )
+    @Length( MIN_USERNAME_LENGTH, MAX_USERNAME_LENGTH )
     username:         string;
 
     @IsString()
-    @MaxLength( MAX_ALLOWED_PASSWORD_LENGTH )
+    @Length( MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH )
     password:         string;
 
     @IsString()
-    @MaxLength( MAX_ALLOWED_PASSWORD_LENGTH )
+    @Length( MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH )
     @IsEqualTo('password', { message: "'confirm_password' should match 'password'" })
     confirm_password: string;
 }

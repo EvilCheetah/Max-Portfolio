@@ -55,11 +55,14 @@ export class UsersService
 
     async updateInfo(user_id: number, updateUserInfoDTO: UpdateUserCredentialsDTO)
     {
-        const user = await this.findOne(user_id)
+        const user = await this.findOne(user_id);
+
+        /// TODO: impelement update-user-information method
     }
 
     updatePassword(user_id: number, updatePasswordDTO: UpdatePasswordDTO)
     {
+        /// TODO: implement update-password method
         return `This action updates a #${user_id} user`;
     }
 
@@ -81,7 +84,7 @@ export class UsersService
         });
     }
 
-    async updateRefreshToken(user_id: number, refresh_token: string | null)
+    async updateRefreshToken(user_id: number, refresh_token: string): Promise<void>
     {
         const refresh_token_hash = await bcrypt.hash(
             refresh_token,
@@ -91,6 +94,17 @@ export class UsersService
         await this.prisma.user.update({
             where: { user_id },
             data:  { refresh_token: refresh_token_hash }
+        });
+    }
+
+    async resetRefreshToken(user_id): Promise<void>
+    {
+        await this.prisma.user.updateMany({
+            where: {
+                user_id,
+                refresh_token: { not: null }
+            },
+            data: { refresh_token: null }
         });
     }
 

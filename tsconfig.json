@@ -18,13 +18,15 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-        "@dto":       ["src/common/dto/index"],
-        "@constant":  ["src/common/constant/index"],
-        "@decorator": ["src/common/decorator/index"],
+        "@dto":         ["src/common/dto/index"],
+        "@constant":    ["src/common/constant/index"],
+        "@decorator":   ["src/common/decorator/index"],
+        "@interface":   ["src/common/interface/index"],
         
-        "@dto/*": ["src/common/dto/*"],
-        "@constant/*": ["src/common/constant/*"],
-        "@decorator/*": ["src/common/decorator/*"]
+        "@dto/*":       ["src/common/dto/*"],
+        "@constant/*":  ["src/common/constant/*"],
+        "@decorator/*": ["src/common/decorator/*"],
+        "@interface/*": ["src/common/interface/*"]
     }
   }
 }

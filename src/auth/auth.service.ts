@@ -1,9 +1,10 @@
+import * as bcrypt from "bcrypt";
+import { JwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 import { NewUserDTO } from '@dto';
 import { CredentialsDTO } from './dto/credentials.dto';
-import { JwtService } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
 import { UsersService } from 'src/users/users.service';
 
 
@@ -19,7 +20,7 @@ export class AuthService
     
     signup(information: NewUserDTO)
     {
-        return 'This action signs user up';
+        return this.usersService.create(information)
     }
 
     login(credentials: CredentialsDTO)
@@ -36,4 +37,6 @@ export class AuthService
     {
         return 'This action refreshes user\'s token';
     }
+
+    getTokens(payload: )
 }

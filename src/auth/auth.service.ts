@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { NewUserDTO } from '@dto';
+import { Token, ValidatedUser } from "@types";
 import { JwtPayload, JwtTokens } from "@interface";
 import { CredentialsDTO } from './dto/credentials.dto';
 import { UsersService } from 'src/users/users.service';
@@ -18,7 +19,35 @@ export class AuthService
         private readonly usersService:  UsersService
     ) {}
     
-    
+    /// ---------------------- Validation Methods ---------------------- ///
+    async validateCredentials(email: string, passwd: string): Promise<ValidatedUser>
+    {
+        const user             = await this.usersService.findOneByEmail(email),
+              password_matches = await bcrypt.compare(passwd, user?.password);
+        
+        if ( !(user && password_matches) )
+            return null;
+        
+        const { password, refresh_token, ...user_info } = user;
+
+        return user_info;
+    }
+
+    async validateRefreshToken(user_id: number, refresh: Token): Promise<ValidatedUser>
+    {
+        const user            = await this.usersService.findOneById(user_id),
+              refresh_matches = await bcrypt.compare(refresh, user?.refresh_token);
+            
+        if ( !(user && refresh_matches) )
+            return null;
+
+        const { password, refresh_token, ...user_info } = user;
+        
+        return user_info;
+    }
+
+
+    ///  ---------------------- Auth Methods ---------------------- /// 
     async signup(information: NewUserDTO)
     {
         const user   = await this.usersService.create(information);
@@ -44,7 +73,9 @@ export class AuthService
         return 'This action refreshes user\'s token';
     }
 
-    getTokens(payload: JwtPayload): JwtTokens
+
+    /// ---------------------- Helper Methods ---------------------- ///
+    private getTokens(payload: JwtPayload): JwtTokens
     {
         const access_token  = this.jwtService.sign(
             payload,

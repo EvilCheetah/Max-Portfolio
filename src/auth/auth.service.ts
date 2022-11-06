@@ -2,11 +2,21 @@ import { Injectable } from '@nestjs/common';
 
 import { NewUserDTO } from '@dto';
 import { CredentialsDTO } from './dto/credentials.dto';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { UsersService } from 'src/users/users.service';
 
 
 @Injectable()
 export class AuthService
 {
+    constructor(
+        private readonly configService: ConfigService,
+        private readonly jwtService:    JwtService,
+        private readonly usersService:  UsersService
+    ) {}
+    
+    
     signup(information: NewUserDTO)
     {
         return 'This action signs user up';

@@ -4,6 +4,7 @@ import { ConfigService } from "@nestjs/config";
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 
 import { PrismaService } from '../prisma/prisma.service';
+import { UniqueUserCriteria } from "@interface";
 import { NewUserDTO, UpdatePasswordDTO, UpdateUserCredentialsDTO } from '@dto';
 
 
@@ -15,6 +16,7 @@ export class UsersService
         private readonly prisma:        PrismaService
     ) {}
 
+    /// ---------------------- CRUD Methods ---------------------- ///
     async create(createUserDTO: NewUserDTO): Promise<User>
     {
         const { password, confirm_password, ...user_data} = createUserDTO;
@@ -70,18 +72,27 @@ export class UsersService
         });
     }
 
-    findByEmail(email: string): Promise<User>
+    findOneBy(criteria: UniqueUserCriteria): Promise<User>
     {
         return this.prisma.user.findUnique({
-            where: { email }
+            where: criteria
         });
+    }
+
+    /// ---------------------- Helper Functions ---------------------- ///
+    findOneById(user_id: number): Promise<User>
+    {
+        return this.findOneBy({ user_id });
+    }
+
+    findByEmail(email: string): Promise<User>
+    {
+        return this.findOneBy({ email });
     }
 
     findByUsername(username: string): Promise<User>
     {
-        return this.prisma.user.findUnique({
-            where: { username }
-        });
+        return this.findOneBy({ username });
     }
 
     private async _check_if_user_exists(user_data: Partial<User>): Promise<void>

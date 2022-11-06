@@ -71,9 +71,9 @@ export class AuthService
         return tokens;
     }
 
-    logout()
+    async logout(user_id: number): Promise<void>
     {
-        return 'This action logs user out';
+        this.usersService.resetRefreshToken(user_id);
     }
 
     refresh()

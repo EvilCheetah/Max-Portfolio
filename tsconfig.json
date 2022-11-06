@@ -18,12 +18,14 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+        "@config":       ["src/common/config/index"],
         "@dto":          ["src/common/dto/index"],
         "@constant":     ["src/common/constant/index"],
         "@decorator":    ["src/common/decorator/index"],
         "@interface":    ["src/common/interface/index"],
         "@validation":   ["src/common/validation/index"],
         
+        "@config/*":     ["src/common/config/*"],
         "@dto/*":        ["src/common/dto/*"],
         "@constant/*":   ["src/common/constant/*"],
         "@decorator/*":  ["src/common/decorator/*"],

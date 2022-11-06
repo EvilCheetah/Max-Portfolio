@@ -1,4 +1,7 @@
+import { Token } from "@types";
+
+
 export interface AccessToken
 {
-    access_token: string;
+    access_token: Token;
 }

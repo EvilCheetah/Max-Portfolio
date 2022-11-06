@@ -1,4 +1,7 @@
+import { Token } from "@types";
+
+
 export interface RefreshToken
 {
-    refresh_token: string;
+    refresh_token: Token;
 }

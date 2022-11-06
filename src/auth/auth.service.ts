@@ -76,9 +76,17 @@ export class AuthService
         this.usersService.resetRefreshToken(user_id);
     }
 
-    refresh()
+    async refresh(user_id: number, refresh_token: Token): Promise<JwtTokens>
     {
-        return 'This action refreshes user\'s token';
+        const user = await this.validateRefreshToken(user_id, refresh_token);
+
+        if ( !user )
+            throw new UnauthorizedException();
+
+        const tokens = this.getTokens({ sub: user.user_id, email: user.email });
+        await this.usersService.updateRefreshToken(user.user_id, tokens.refresh_token);
+
+        return tokens;
     }
 
 

@@ -11,13 +11,19 @@ export class AuthController
     constructor(private readonly authService: AuthService) {}
 
     @Post('signup')
-    signup(@Body() information: NewUserDTO)
+    signup(
+        @Body()
+        information: NewUserDTO
+    )
     {
         return this.authService.signup(information);
     }
 
     @Post('login')
-    login(@Body() credentials: CredentialsDTO)
+    login(
+        @Body()
+        credentials: CredentialsDTO
+    )
     {
         
     }

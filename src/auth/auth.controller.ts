@@ -1,12 +1,11 @@
 import { Body, Controller, HttpCode, HttpStatus, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
 
-import { Token } from '@types';
+import { Token, ValidatedUser } from '@types';
 import { JwtTokens } from '@interface';
 import { NewUserDTO } from '@dto';
 import { GetUser, Public, User } from '@decorator';
 import { JwtRefreshAuthGuard, LocalAuthGuard } from '@guard';
 import { AuthService } from './auth.service';
-import { CredentialsDTO } from './dto/credentials.dto';
 
 
 @Controller('auth')
@@ -25,16 +24,15 @@ export class AuthController
         return this.authService.signup(information);
     }
 
-
     @Post('login')
     @HttpCode(HttpStatus.OK)
     @UseGuards(LocalAuthGuard)
     login(
         @User()
-        credentials: CredentialsDTO
+        user: ValidatedUser
     ): Promise<JwtTokens>
     {
-        return this.authService.login(credentials);
+        return this.authService.login(user);
     }
 
 

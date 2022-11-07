@@ -6,7 +6,6 @@ import { ConfigService } from '@nestjs/config';
 import { NewUserDTO } from '@dto';
 import { Token, ValidatedUser } from "@types";
 import { JwtPayload, JwtTokens } from "@interface";
-import { CredentialsDTO } from './dto/credentials.dto';
 import { UsersService } from 'src/users/users.service';
 
 
@@ -58,13 +57,8 @@ export class AuthService
         return tokens;
     }
 
-    async login(credentials: CredentialsDTO): Promise<JwtTokens>
+    async login(user: ValidatedUser): Promise<JwtTokens>
     {
-        const user = await this.validateCredentials(credentials.username, credentials.password);
-
-        if ( !user )
-            throw new UnauthorizedException();
-        
         const tokens = this.getTokens({ sub: user.user_id, email: user.email });
         await this.usersService.updateRefreshToken(user.user_id, tokens.refresh_token);
 

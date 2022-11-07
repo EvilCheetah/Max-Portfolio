@@ -71,9 +71,11 @@ export class AuthService
         return tokens;
     }
 
-    async logout(user_id: number): Promise<void>
+    async logout(user_id: number): Promise<string>
     {
-        this.usersService.resetRefreshToken(user_id);
+        await this.usersService.resetRefreshToken(user_id);
+
+        return 'Successfully logged out';
     }
 
     async refresh(user_id: number, refresh_token: Token): Promise<JwtTokens>

@@ -1,6 +1,6 @@
 import { IsEmail, IsString, Length } from "class-validator";
 
-import { IsEqualTo } from "@decorator";
+import { IsEqualTo, IsStrongPassword } from "@decorator";
 import { IsUsername } from "@decorator";
 import {
     MIN_PASSWORD_LENGTH,
@@ -21,6 +21,7 @@ export class NewUserDTO
 
     @IsString()
     @Length( MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH )
+    @IsStrongPassword()
     password:         string;
 
     @IsString()
